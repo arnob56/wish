@@ -1,5 +1,6 @@
-// Pleasing messages (your chosen set)
 const messages = [
+  "Hey my Doraemon!!!"
+  "THIS IS FOR YOU 💙💙
   "Aajke hawa ta ektu beshi shanto 🌤️",
   "Ei moment ta just tomar jonno 💙",
   "Choto choto hashi o onek hoy 😊",
@@ -8,25 +9,48 @@ const messages = [
 ];
 
 let index = 0;
+let started = false;
 
-// Show messages one by one
-function showMessage() {
-  const msg = document.getElementById("message");
+const music = document.getElementById("bgMusic");
+music.volume = 0.25;
+
+const msg = document.getElementById("message");
+const pocket = document.getElementById("pocket");
+const img = document.getElementById("doraemonImg");
+
+// ONE CLICK ONLY
+pocket.addEventListener("click", () => {
+  if (started) return;
+  started = true;
+
+  // start music
+  music.play().catch(() => {});
+  
+  // show message area
   msg.classList.remove("hidden");
+  pocket.classList.add("active");
+
+  // change image to Doraemon + Nobita
+  img.src = "doraemon2.jpg";
+
+  // start auto messages
+  showMessage();
+  setInterval(showMessage, 3500);
+});
+
+function showMessage() {
   msg.innerText = messages[index];
   index = (index + 1) % messages.length;
 }
 
-// Floating cloud animation
+// floating clouds
 function createCloud() {
   const cloud = document.createElement("span");
   const size = Math.random() * 120 + 60;
-
   cloud.style.width = size + "px";
   cloud.style.height = size / 2 + "px";
   cloud.style.top = Math.random() * 60 + "%";
   cloud.style.left = "-150px";
-
   document.getElementById("clouds").appendChild(cloud);
 
   let pos = -150;
@@ -35,7 +59,6 @@ function createCloud() {
   const move = setInterval(() => {
     pos += speed;
     cloud.style.left = pos + "px";
-
     if (pos > window.innerWidth) {
       cloud.remove();
       clearInterval(move);
@@ -44,17 +67,3 @@ function createCloud() {
 }
 
 setInterval(createCloud, 3000);
-
-// Background music autoplay handling
-const music = document.getElementById("bgMusic");
-music.volume = 0.25;
-
-// Try autoplay on load
-window.addEventListener("load", () => {
-  music.play().catch(() => {
-    // If blocked, play on first interaction
-    document.body.addEventListener("click", () => {
-      music.play();
-    }, { once: true });
-  });
-});
