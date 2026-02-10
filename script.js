@@ -1,6 +1,6 @@
 const messages = [
   "Hey my Doraemon!!!"
-  "THIS IS FOR YOU 💙💙
+  "THIS IS FOR YOU 💙💙"
   "Aajke hawa ta ektu beshi shanto 🌤️",
   "Ei moment ta just tomar jonno 💙",
   "Choto choto hashi o onek hoy 😊",
